@@ -1,0 +1,7 @@
+<template>
+    <div class="p-4">
+        <h1 class="text-2xl font-bold mb-4">Favoritos</h1>
+        <p>Aqui o usuário poderá visualizar e remover seus GIFs favoritos.</p>
+    </div>
+</template>
+  
