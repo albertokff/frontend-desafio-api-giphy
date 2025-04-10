@@ -1,22 +1,22 @@
 <template>
-    <div class="p-4">
-      <div class="flex justify-center mb-6">
+    <div class="min-h-screen bg-gray-100 px-4 pt-12 pb-16">
+      <div class="flex justify-center mb-12">
         <input
           v-model="searchQuery"
           @keyup.enter="searchGifs"
           type="text"
-          placeholder="Digite sua busca e aperte Enter"
-          class="w-full max-w-md px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring focus:border-blue-300"
+          placeholder="Buscar GIFs..."
+          class="w-[320px] px-5 py-3 border border-gray-300 rounded-xl shadow-sm bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200"
         />
       </div>
   
-      <div v-if="loading" class="text-center text-lg font-medium text-gray-600">
+      <div v-if="loading" class="text-center text-lg font-medium text-gray-600 mb-8">
         Carregando GIFs...
       </div>
   
       <div
         v-else
-        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
       >
         <div
           v-for="gif in gifs"
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-  </template>
+  </template>  
   
   <script setup>
   import { ref, onMounted } from 'vue'
