@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
 
-const apiKey = 'qNQZcMw7FF6TrOQ0RAyshhYbdxDxi2ds'
+const apiKey = import.meta.env.VITE_API_KEY_GIPHY
 
 export const useGiphyStore = defineStore('giphy', () => {
   const gifs = ref([])
