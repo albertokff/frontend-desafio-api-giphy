@@ -1,16 +1,15 @@
 <template>
   <q-layout view="lHh Lpr lFf" :class="isDark ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'">
-    <!-- Topbar -->
-    <q-header elevated class="shadow-md" :class="isDark ? 'bg-gray-800 text-white' : 'bg-white text-black'">
-      <q-toolbar>
-        <q-avatar>
+    <q-header elevated class="shadow-md q-px-md q-py-sm flex items-center justify-between"
+               :class="isDark ? 'bg-gray-800 text-white' : 'bg-white text-black'">
+      <div class="flex items-center">
+        <q-avatar class="q-mr-sm">
           <img src="https://placehold.co/40x40" alt="Logo" />
         </q-avatar>
-        <q-toolbar-title class="font-bold">
-          Giphy Explorer
-        </q-toolbar-title>
-
-        <!-- Botão de tema -->
+        <div class="text-h6 font-bold">Giphy Explorer</div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-subtitle2 font-medium">Diogo Alberto</div>
         <q-btn
           dense
           flat
@@ -18,15 +17,14 @@
           icon="dark_mode"
           @click="toggleTheme"
           :class="isDark ? 'text-yellow-400' : 'text-gray-700'"
-          :label="isDark ? 'Light' : 'Dark'"
-          class="q-ml-md"
         />
-      </q-toolbar>
+        <q-btn flat dense round icon="menu" class="q-ml-sm q-hidden-md-up" @click="leftDrawerOpen = !leftDrawerOpen" />
+      </div>
     </q-header>
 
-    <!-- Sidebar -->
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered :class="isDark ? 'bg-gray-800 text-white' : 'bg-white text-black'">
-      <q-list>
+    <q-drawer v-model="leftDrawerOpen" side="left" bordered :overlay="!$q.screen.gt.sm"
+              :class="isDark ? 'bg-gray-800 text-white' : 'bg-white text-black'">
+      <q-list padding>
         <q-item to="/" clickable v-ripple>
           <q-item-section>Home</q-item-section>
         </q-item>
@@ -42,22 +40,28 @@
       </q-list>
     </q-drawer>
 
-    <!-- Conteúdo principal -->
-    <q-page-container>
+    <q-page-container class="q-pa-sm">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useThemeStore } from '../stores/themeStore'
-import { storeToRefs } from 'pinia'
+  import { ref } from 'vue'
+  import { useThemeStore } from '../stores/themeStore'
+  import { storeToRefs } from 'pinia'
 
-const leftDrawerOpen = ref(true)
+  const leftDrawerOpen = ref(false)
 
-const themeStore = useThemeStore()
-const { isDark } = storeToRefs(themeStore)
-const { toggleTheme } = themeStore
+  const themeStore = useThemeStore()
+  const { isDark } = storeToRefs(themeStore)
+  const { toggleTheme } = themeStore
 </script>
 
+<style scoped>
+  @media (max-width: 600px) {
+    .q-drawer {
+      width: 200px;
+    }
+  }
+</style>
