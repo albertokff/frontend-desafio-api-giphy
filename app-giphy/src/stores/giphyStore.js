@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
+import axios from 'axios'
 
 const apiKey = import.meta.env.VITE_API_KEY_GIPHY
 
@@ -28,10 +29,15 @@ export const useGiphyStore = defineStore('giphy', () => {
     }
 
     try {
-      const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${perPage}&offset=${offset}`)
-      const data = await res.json()
-      gifs.value = data.data
-      cache[cacheKey] = data.data
+      const res = await axios.get('https://api.giphy.com/v1/gifs/trending', {
+        params: {
+          api_key: apiKey,
+          limit: perPage,
+          offset
+        }
+      })
+      gifs.value = res.data.data
+      cache[cacheKey] = res.data.data
     } catch (err) {
       console.error('Erro ao buscar GIFs trending:', err)
     } finally {
@@ -51,10 +57,16 @@ export const useGiphyStore = defineStore('giphy', () => {
     }
 
     try {
-      const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${perPage}&offset=${offset}`)
-      const data = await res.json()
-      gifs.value = data.data
-      cache[cacheKey] = data.data
+      const res = await axios.get('https://api.giphy.com/v1/gifs/search', {
+        params: {
+          api_key: apiKey,
+          q: query,
+          limit: perPage,
+          offset
+        }
+      })
+      gifs.value = res.data.data
+      cache[cacheKey] = res.data.data
     } catch (err) {
       console.error('Erro ao buscar GIFs por pesquisa:', err)
     } finally {
