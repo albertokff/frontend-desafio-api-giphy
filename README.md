@@ -1,8 +1,4 @@
-![image](https://github.com/user-attachments/assets/6e9e367f-165e-4618-8c7e-94a48d405538)# 🚀 Giphy Explorer
-
 Uma aplicação web desenvolvida com **Vue 3 + Quasar** que permite explorar e buscar GIFs animados usando a API do GIPHY. A interface é leve, responsiva, e com suporte a tema escuro/claro. Ideal pra quem quer dar boas risadas, achar aquele GIF perfeito ou só procrastinar com estilo. 😄
-
-![screenshot](https://placehold.co/800x400?text=Demo+Screenshot)
 
 ---
 
@@ -43,6 +39,8 @@ npm install
 
 # Insira a chave da API no arquivo giphyStore.js, na linha 5, irá ficar assim:
 const apiKey = 'qNQZcMw7FF6TrOQ0RAyshhYbdxDxi2ds'
+
+![image](https://github.com/user-attachments/assets/6e9e367f-165e-4618-8c7e-94a48d405538)# 🚀 Giphy Explorer
 
 * Esse passo é necessário, pois o projeto está disponibilizado no vercel, (pode ser acessado por este link: https://frontend-desafio-api-giphy-1n9g.vercel.app/#/ ), e lá a apiKey está configurada como uma variável de ambiente.
 
