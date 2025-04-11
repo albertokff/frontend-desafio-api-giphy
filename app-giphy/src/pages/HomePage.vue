@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-gray-100 px-4 pt-12 pb-16">
-      <div class="flex justify-center mb-12 gap-2">
+      <div class="flex justify-center items-center gap-2 mb-12">
         <input
           v-model="searchQuery"
           @keyup.enter="searchGifs"
@@ -10,14 +10,17 @@
         />
         <button
           @click="searchGifs"
-          class="px-4 py-3 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition-all duration-200"
+          class="px-4 py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition"
         >
           Buscar
         </button>
       </div>
   
-      <div v-if="loading" class="text-center text-lg font-medium text-gray-600 mb-8">
-        Carregando GIFs...
+      <LottieLoader v-if="loading" class="mb-8" />
+  
+      <div v-else-if="!loading && gifs.length === 0" class="text-center">
+        <NoResults />
+        <p class="text-gray-600 text-lg font-medium mt-4">Nenhum GIF encontrado.</p>
       </div>
   
       <div
@@ -42,24 +45,26 @@
   <script setup>
   import { ref, onMounted } from 'vue'
   import { useGiphyStore } from '../stores/giphyStore'
+  import LottieLoader from '../components/LottieLoader.vue'
+  import NoResults from '../components/NoResults.vue'
   import { storeToRefs } from 'pinia'
   
   const store = useGiphyStore()
-  const { gifs, loading } = storeToRefs(store)
-  const { searchAllGifs, searchGifsByQuery } = store
   const searchQuery = ref('')
-  
-  function searchGifs() {
-    const query = searchQuery.value.trim()
-    if (query === '') {
+
+const { gifs, loading } = storeToRefs(store)
+const { searchAllGifs, searchGifsByQuery } = store
+
+  const searchGifs = () => {
+    if (searchQuery.value.trim() === '') {
       searchAllGifs()
     } else {
-      searchGifsByQuery(query)
+      searchGifsByQuery(searchQuery.value)
     }
   }
   
   onMounted(() => {
     searchAllGifs()
   })
-  </script>  
+  </script>
   
